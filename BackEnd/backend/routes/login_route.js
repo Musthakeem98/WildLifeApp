@@ -29,31 +29,4 @@ router.post('/login', async (req, res) => {
   }
 });
 
-// OFFICER LOGIN
-router.post('/officerlogin', async (req, res) => {
-  try {
-    const officer = await Officer.findOne({ officerId: req.body.officerId });
-
-    if (!officer) {
-      return res.status(401).json("Wrong Officer ID");
-    }
-
-    const originalPassword = officer.password;
-    const inputPassword = req.body.password;
-
-    if (originalPassword !== inputPassword) {
-      return res.status(401).json("Wrong Password");
-    }
-
-    // Destructure the officer object to exclude sensitive information (password)
-    const { password, ...officerWithoutPassword } = officer._doc;
-
-    res.status(200).json({ officer: officerWithoutPassword });
-
-  } catch (err) {
-    console.error(err);
-    res.status(500).json(err);
-  }
-});
-
 module.exports = router;

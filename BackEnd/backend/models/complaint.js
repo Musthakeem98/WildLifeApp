@@ -13,8 +13,9 @@ const ComplaintSchema = new mongoose.Schema(
       }
     ],
     evidences: { type: String, required: true },
-    status: { type: Number },
+    status: { type: String , required: true},
     complaintNote: { type: String },
+    data: {type: Date}
   },
   { timestamps: true }
 );
